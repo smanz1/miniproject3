@@ -32,7 +32,7 @@ class PerceptronClassifier:
     self.features = trainingData[0].keys() # could be useful later
     
     for iteration in range(self.max_iterations):
-      print "Starting iteration ", iteration, "..."
+      print ("Starting iteration ", iteration, "...")
       for i in range(len(trainingData)):
           "*** YOUR CODE HERE ***"
           util.raiseNotDefined()
