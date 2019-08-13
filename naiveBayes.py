@@ -50,7 +50,13 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     self.legalLabels.
     """
 
-    "*** YOUR CODE HERE ***"
+    acc = -1
+    trainCount = util.Counter(); #number of times seeing label l
+    trainCondProb = util.Counter(); #p(feature = 1 | label)
+    trainPrior = util.Counter(); #p(label)
+
+    
+
     util.raiseNotDefined()
         
   def classify(self, testData):
@@ -75,7 +81,18 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     """
     logJoint = util.Counter()
     
-    "*** YOUR CODE HERE ***"
+    for l in self.legalLabels:
+        logJoint[l] = math.log(self.prior[l])
+        #find the most probable label given the feature values for each pixel:
+        for feature, val in datum.items():
+          #multiplying many probabilties often result in underflow, instead
+          #compute log probabilities which have the same argmax:
+          if(val < 0):#1 - self
+            logJoint[l] += math.log(1-self.conditionalProb[feature, l])
+          elif(value == 0):
+            logJoint[l] += math.log(1-self.conditionalProb[feature, l])
+          else: #self 
+            logJoint[l] += math.log(self.conditionalProb[feature, l])
     util.raiseNotDefined()
     
     return logJoint
@@ -86,8 +103,17 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
             P(feature=1 | label1)/P(feature=1 | label2) 
     """
     featuresOdds = []
-        
-    "*** YOUR CODE HERE ***"
+    #self.features is the list of all possible features.
+    #We want the best 100 features for each odds ratio so loop through all possible fatures
+    for features in self.feature:
+      featureOdds.append((self.conditionalProb[feature, label1]/self.conditionalProb[feature, label2], feature))
+    
+    #sort the odds from least to greatest
+    featureOdds.sort()
+    #print(featureOdds)
+    #for each value in feature 
+    #feature value = features in featureodds from -100:list
+    featureOdds = [feature for val, feature in featuresOdds[-100:]]
     util.raiseNotDefined()
 
     return featuresOdds
