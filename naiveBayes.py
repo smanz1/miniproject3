@@ -54,7 +54,19 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
     trainCount = util.Counter(); #number of times seeing label l
     trainCondProb = util.Counter(); #p(feature = 1 | label)
     trainPrior = util.Counter(); #p(label)
+    lengthT = len(trainingData)
 
+    #loop through the training data
+    for x in range lengthT:
+      label = trainingLabels[x] #label
+      datum = trainingData[x] #data #
+      trainPrior[label] = trainPrior[label] + 1 #increment the prior 
+      for feature, val in datum.items(): #iterate through datum objects
+        trainCount[(feature, label)] = trainCount[(feature,label)] + 1
+        if val > 0: #assume binary value
+          trainCondProb[(feature, label)]
+
+      #must smooth the data using K from kgrid
     
 
     util.raiseNotDefined()
