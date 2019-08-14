@@ -66,7 +66,12 @@ class NaiveBayesClassifier(classificationMethod.ClassificationMethod):
         if val > 0: #assume binary value
           trainCondProb[(feature, label)]
 
+      #set k value for tuning
       #must smooth the data using K from kgrid
+      #normalize the data 
+      #can get auto tuning for k value use:
+      # python dataClassifiers.py -c naiveBayes --autotune
+      # should run with accuracy of 65% + 
     
 
     util.raiseNotDefined()
